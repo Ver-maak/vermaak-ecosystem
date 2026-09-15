@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789438179319,
+      "tag": "0000_vermaak_cms_schema",
+      "breakpoints": true
+    }
+  ]
+}
