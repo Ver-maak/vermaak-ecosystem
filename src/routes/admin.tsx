@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Logo } from "@/components/site/Logo";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -204,7 +205,7 @@ function AdminPage() {
       <header className="border-b border-border">
         <div className="shell flex items-center justify-between py-5">
           <Link to="/" className="font-display text-2xl font-semibold tracking-tight">
-            Vermaak<span className="text-accent">.</span> <span className="text-sm font-normal text-muted-foreground">Content</span>
+            <Logo className="h-8" /> <span className="text-sm font-normal text-muted-foreground">Content</span>
           </Link>
           <div className="flex items-center gap-4 text-sm">
             <span className="hidden text-muted-foreground sm:inline">{user.email}</span>

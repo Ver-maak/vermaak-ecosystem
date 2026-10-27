@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Logo } from "@/components/site/Logo";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -51,7 +52,7 @@ function AuthPage() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="w-full max-w-sm">
         <Link to="/" className="font-display text-3xl font-semibold tracking-tight">
-          Vermaak<span className="text-accent">.</span>
+          <Logo className="h-12" />
         </Link>
         <h1 className="mt-10 font-display text-2xl font-medium">
           {mode === "signin" ? "Sign in to manage content" : "Create an account"}
