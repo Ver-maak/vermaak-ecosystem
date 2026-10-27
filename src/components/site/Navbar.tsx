@@ -29,7 +29,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-md">
       <div className="shell flex h-[4.5rem] items-center justify-between">
         <Link to="/" className="font-display text-2xl font-semibold tracking-tight">
-          <Logo />
+          <Logo className="h-11" />
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-8 lg:flex">
