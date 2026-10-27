@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Logo } from "@/components/site/Logo";
 import { useQuery } from "@tanstack/react-query";
 import { settingsQuery, settingValue, venturesQuery } from "@/lib/cms";
 import { trackEvent } from "@/lib/analytics";
@@ -30,8 +31,8 @@ export function Footer() {
       <div className="shell py-20">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <p className="font-display text-4xl font-semibold tracking-tight">
-              Vermaak<span className="text-accent">.</span>
+            <p className="inline-block rounded-md bg-card px-4 py-3">
+              <Logo className="h-12" />
             </p>
             <p className="mt-5 max-w-xs leading-relaxed text-ink-foreground/60">
               {settingValue(map, "footer_tagline")}
