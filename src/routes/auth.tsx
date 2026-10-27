@@ -30,7 +30,7 @@ function AuthPage() {
     if (mode === "signin") {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       setBusy(false);
-      if (error) return toast.error(error.message);
+      if (error) { toast.error(error.message); return; }
       navigate({ to: "/admin" });
     } else {
       const { error } = await supabase.auth.signUp({
@@ -39,7 +39,7 @@ function AuthPage() {
         options: { emailRedirectTo: `${window.location.origin}/admin`, data: { full_name: name } },
       });
       setBusy(false);
-      if (error) return toast.error(error.message);
+      if (error) { toast.error(error.message); return; }
       toast.success("Check your email to confirm your account.");
       setMode("signin");
     }

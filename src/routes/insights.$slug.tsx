@@ -11,8 +11,8 @@ import { trackEvent } from "@/lib/analytics";
 import type { Database } from "@/integrations/supabase/types";
 
 async function fetchInsight(slug: string): Promise<Insight> {
-  const url = import.meta.env.VITE_SUPABASE_URL as string;
-  const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
+  const url = import.meta.env["VITE_SUPABASE_URL"] as string;
+  const key = import.meta.env["VITE_SUPABASE_PUBLISHABLE_KEY"] as string;
   const client = createClient<Database>(url, key, {
     auth: { persistSession: false, autoRefreshToken: false, storage: undefined },
   });
