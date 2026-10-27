@@ -19,7 +19,7 @@ import { trackEvent } from "@/lib/analytics";
 
 const TITLE = "Vermaak | Building Africa's Creative & Digital Future";
 const DESCRIPTION =
-  "Vermaak is an African creative-economy and digital-workforce company building and operating ventures across technology, talent, consulting, creative economy, digital products and experiences.";
+  "Vermaak is a technology company building talent, markets and systems for Africa’s digital and creative economy. We help entrepreneurs, creatives and organisations turn ideas into opportunities.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -58,9 +58,7 @@ function Home() {
                 <span className="text-accent">.</span>
               </h1>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
-                Vermaak is an umbrella company developing and operating ventures at the meeting point
-                of technology, talent and creativity — building the platforms, skills and
-                institutions Africa's next economy will run on.
+                Vermaak is a technology company building talent, markets and systems for Africa’s digital and creative economy. Our work brings together technology, creativity and entrepreneurship to make innovation more accessible and create lasting economic opportunities.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
                 <Link
@@ -110,9 +108,7 @@ function Home() {
         <div className="lg:col-span-8">
           <Reveal>
             <p className="font-display text-3xl leading-[1.25] tracking-tight lg:text-[2.6rem]">
-              We are an African company that builds ventures, not just projects — platforms for
-              learning, consulting, events, creative work and digital products, each designed to
-              serve a sector and grow beyond a single contract.
+              Vermaak is a technology company building talent, markets and systems for Africa’s digital and creative economy.
             </p>
             <p className="mt-7 max-w-2xl leading-relaxed text-muted-foreground">
               Vermaak works with governments, development partners, corporates, universities, NGOs
