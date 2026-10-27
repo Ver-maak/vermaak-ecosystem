@@ -177,7 +177,7 @@ type Row = Record<string, unknown>;
 function AdminPage() {
   const { user, isEditor, loading } = useAuth();
   const navigate = useNavigate();
-  const [active, setActive] = useState(COLLECTIONS[0].table);
+  const [active, setActive] = useState(COLLECTIONS[0]!.table);
 
   useEffect(() => {
     if (!loading && !user) navigate({ to: "/auth" });
@@ -197,7 +197,7 @@ function AdminPage() {
     );
   }
 
-  const collection = COLLECTIONS.find((c) => c.table === active)!;
+  const collection = COLLECTIONS.find((c) => c.table === active) ?? COLLECTIONS[0]!;
 
   return (
     <div className="min-h-screen bg-background">
@@ -246,7 +246,7 @@ function CollectionManager({ collection }: { collection: Collection }) {
     let query = table.select("*");
     if (collection.order) query = query.order(collection.order.column as "name", { ascending: collection.order.ascending });
     const { data, error } = await query;
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     setRows((data ?? []) as Row[]);
   }
 
@@ -261,7 +261,7 @@ function CollectionManager({ collection }: { collection: Collection }) {
     const { error } = isNew
       ? await table.insert(payload)
       : await table.update(payload).eq(keyField as "id", editing![keyField] as string);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Saved");
     setEditing(null);
     queryClient.invalidateQueries({ queryKey: [collection.queryKey] });
@@ -271,7 +271,7 @@ function CollectionManager({ collection }: { collection: Collection }) {
   async function remove(row: Row) {
     if (!confirm(`Delete "${String(row[collection.titleField] ?? "")}"?`)) return;
     const { error } = await supabase.from(collection.table as "ventures").delete().eq(keyField as "id", row[keyField] as string);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Deleted");
     queryClient.invalidateQueries({ queryKey: [collection.queryKey] });
     load();
@@ -305,7 +305,7 @@ function CollectionManager({ collection }: { collection: Collection }) {
                 </dl>
               ) : (
                 <p className="mt-1 truncate text-xs text-muted-foreground">
-                  {"status" in row ? String(row.status).replace("_", " ") : String(row[collection.fields[1]?.name] ?? "")}
+                  {"status" in row ? String(row["status"]).replace("_", " ") : String(row[collection.fields[1]?.name ?? ""] ?? "")}
                 </p>
               )}
             </div>
