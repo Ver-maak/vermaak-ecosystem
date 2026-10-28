@@ -111,10 +111,14 @@ function Home() {
               Vermaak is a technology company building talent, markets and systems for Africa’s digital and creative economy.
             </p>
             <p className="mt-7 max-w-2xl leading-relaxed text-muted-foreground">
-              Vermaak works with governments, development partners, corporates, universities, NGOs
-              and creative professionals. We combine advisory depth with the ability to build and
-              run the technology ourselves — which is why our work outlives the programmes that
-              start it.
+              We work with entrepreneurs, creatives, organisations and communities to turn ideas into
+              opportunities. Through digital solutions, skills development, business support and
+              creative programmes, we help our clients strengthen their capabilities, reach new
+              markets and grow sustainably.
+            </p>
+            <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
+              Our work brings together technology, creativity and entrepreneurship to make innovation
+              more accessible and create lasting economic opportunities.
             </p>
             <Link
               to="/about"

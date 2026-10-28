@@ -102,7 +102,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@type": "Organization",
           name: "Vermaak",
           description:
-            "Vermaak is an African creative-economy and digital-workforce company building talent, markets, products and systems for Africa's digital and creative economy.",
+            "Vermaak is a technology company building talent, markets and systems for Africa’s digital and creative economy.",
           areaServed: "Africa",
           url: "https://vermaak.africa",
         }),
