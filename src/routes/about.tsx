@@ -61,16 +61,17 @@ function AboutPage() {
           <Reveal>
             <p className="eyebrow">Who we are</p>
             <p className="mt-6 leading-relaxed text-muted-foreground">
-              Vermaak is an African creative-economy and digital-workforce company. We operate as an
-              umbrella brand: a group of ventures that share one standard of craft, one set of values
-              and one ambition — to build capability on the continent rather than import it.
+              Vermaak is a technology company building talent, markets and systems for Africa’s
+              digital and creative economy. Our work brings together technology, creativity and
+              entrepreneurship to make innovation more accessible and create lasting economic
+              opportunities.
             </p>
             <p className="eyebrow mt-12">What we do</p>
             <p className="mt-6 leading-relaxed text-muted-foreground">
-              We advise, we train and we build. That means digital transformation and technology
-              products for institutions, research and programme delivery for partners, training and
-              talent pipelines for young professionals, and platforms and experiences that serve
-              Africa's creative sector.
+              We work with entrepreneurs, creatives, organisations and communities to turn ideas into
+              opportunities. Through digital solutions, skills development, business support and
+              creative programmes, we help our clients strengthen their capabilities, reach new
+              markets and grow sustainably.
             </p>
           </Reveal>
         </div>
