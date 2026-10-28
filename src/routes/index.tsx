@@ -52,7 +52,7 @@ function Home() {
         <div className="shell grid gap-14 pt-16 pb-20 lg:grid-cols-12 lg:pt-24 lg:pb-28">
           <div className="lg:col-span-7">
             <Reveal>
-              <p className="eyebrow">African creative economy &amp; digital workforce</p>
+              <p className="eyebrow">Technology · Talent · Markets · Systems</p>
               <h1 className="display-xl mt-7">
                 Building Africa's Creative and Digital Future
                 <span className="text-accent">.</span>
