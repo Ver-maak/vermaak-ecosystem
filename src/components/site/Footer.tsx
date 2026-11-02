@@ -115,9 +115,6 @@ export function Footer() {
                 </a>
               );
             })}
-            <Link to="/admin" className="hover:text-accent">
-              Admin
-            </Link>
           </div>
         </div>
       </div>
