@@ -16,6 +16,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EcosystemRouteImport } from './routes/ecosystem'
 import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as MatchRouteImport } from './routes/match'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as InsightsIndexRouteImport } from './routes/insights.index'
@@ -56,6 +57,11 @@ const InsightsRoute = InsightsRouteImport.update({
   path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MatchRoute = MatchRouteImport.update({
+  id: '/match',
+  path: '/match',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/ecosystem': typeof EcosystemRoute
   '/insights': typeof InsightsRouteWithChildren
+  '/match': typeof MatchRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
   '/insights/$slug': typeof InsightsSlugRoute
@@ -97,6 +104,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/ecosystem': typeof EcosystemRoute
+  '/match': typeof MatchRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
   '/insights/$slug': typeof InsightsSlugRoute
@@ -111,6 +119,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/ecosystem': typeof EcosystemRoute
   '/insights': typeof InsightsRouteWithChildren
+  '/match': typeof MatchRoute
   '/projects': typeof ProjectsRoute
   '/services': typeof ServicesRoute
   '/insights/$slug': typeof InsightsSlugRoute
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/ecosystem'
     | '/insights'
+    | '/match'
     | '/projects'
     | '/services'
     | '/insights/$slug'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/ecosystem'
+    | '/match'
     | '/projects'
     | '/services'
     | '/insights/$slug'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/ecosystem'
     | '/insights'
+    | '/match'
     | '/projects'
     | '/services'
     | '/insights/$slug'
@@ -165,6 +177,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   EcosystemRoute: typeof EcosystemRoute
   InsightsRoute: typeof InsightsRouteWithChildren
+  MatchRoute: typeof MatchRoute
   ProjectsRoute: typeof ProjectsRoute
   ServicesRoute: typeof ServicesRoute
 }
@@ -220,6 +233,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/match': {
+      id: '/match'
+      path: '/match'
+      fullPath: '/match'
+      preLoaderRoute: typeof MatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects': {
       id: '/projects'
       path: '/projects'
@@ -273,6 +293,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   EcosystemRoute: EcosystemRoute,
   InsightsRoute: InsightsRouteWithChildren,
+  MatchRoute: MatchRoute,
   ProjectsRoute: ProjectsRoute,
   ServicesRoute: ServicesRoute,
 }
