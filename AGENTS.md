@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Serve this site from Lovable hosting: the AI advisor's gateway key is provisioned only there, so don't add provider-specific workarounds to run that feature on other hosts.
+- Netlify is the main host; the AI advisor uses OPENAI_API_KEY (set in Netlify env) and falls back to the Lovable gateway key, because the gateway key only exists on Lovable hosting.
