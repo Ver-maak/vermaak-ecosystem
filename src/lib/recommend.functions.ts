@@ -7,7 +7,7 @@ const Input = z.object({
 });
 
 export type Recommendation = {
-  kind: "venture" | "service";
+  kind: "venture" | "service" | "programme";
   slug: string;
   name: string;
   reason: string;
@@ -20,13 +20,14 @@ const Result = z.object({
   recommendations: z
     .array(
       z.object({
-        kind: z.enum(["venture", "service"]),
+        kind: z.enum(["venture", "service", "programme"]),
         slug: z.string(),
+        name: z.string().optional(),
         reason: z.string(),
         next_step: z.string(),
       }),
     )
-    .max(5),
+    .max(6),
 });
 
 export const recommendForGoals = createServerFn({ method: "POST" })
@@ -68,7 +69,7 @@ export const recommendForGoals = createServerFn({ method: "POST" })
       const result = streamText({
         model: provider.responses("openai/gpt-6-astra"),
         system:
-          "You are Vermaak's advisor. Vermaak is a technology company building talent, markets and systems for Africa's digital and creative economy. Recommend 2-4 of the most relevant items ONLY from the provided catalog (use exact slugs). Prefer active ventures; if recommending a 'coming_soon' or 'developing' venture, say so in the reason. Reply with ONLY a JSON object: {\"summary\": string, \"recommendations\": [{\"kind\": \"venture\"|\"service\", \"slug\": string, \"reason\": string (1-2 sentences, addressed to the user), \"next_step\": string (short action)}]}.",
+          "You are Vermaak's advisor. Vermaak is a technology company building talent, markets and systems for Africa's digital and creative economy. Recommend 2-5 relevant offerings. Use the provided catalog first (exact slugs; prefer active ventures and say so if a venture is 'coming_soon' or 'developing'). You are NOT limited to the catalog: also draw on your broad knowledge of digital transformation, skills development, business support, market access, creative economy programmes, funding readiness and best practices from other sources, and frame these as tailored programmes Vermaak can offer or co-design (kind 'programme', a short kebab-case slug, and a 'name'). Reply with ONLY a JSON object: {\"summary\": string, \"recommendations\": [{\"kind\": \"venture\"|\"service\"|\"programme\", \"slug\": string, \"name\"?: string, \"reason\": string (1-2 sentences, addressed to the user), \"next_step\": string (short action)}]}.",
         messages: [
           {
             role: "user",
@@ -91,7 +92,9 @@ export const recommendForGoals = createServerFn({ method: "POST" })
 
       const recommendations: Recommendation[] = [];
       for (const r of parsed.recommendations) {
-        if (r.kind === "venture") {
+        if (r.kind === "programme") {
+          recommendations.push({ ...r, name: r.name ?? r.slug, url: null });
+        } else if (r.kind === "venture") {
           const v = (ventures ?? []).find((x) => x.slug === r.slug);
           if (v) recommendations.push({ ...r, name: v.name, url: v.status === "coming_soon" ? null : v.url });
         } else {
