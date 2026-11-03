@@ -33,8 +33,9 @@ const Result = z.object({
 export const recommendForGoals = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => Input.parse(data))
   .handler(async ({ data }) => {
+    const openaiKey = process.env["OPENAI_API_KEY"];
     const apiKey = process.env["LOVABLE_API_KEY"];
-    if (!apiKey) return { error: "The recommendation service isn't configured yet." };
+    if (!openaiKey && !apiKey) return { error: "The recommendation service isn't configured yet." };
 
     const { supabase } = await import("@/integrations/supabase/client");
     const [{ data: ventures }, { data: services }] = await Promise.all([
@@ -59,15 +60,19 @@ export const recommendForGoals = createServerFn({ method: "POST" })
 
     const { createOpenAI } = await import("@ai-sdk/openai");
     const { streamText } = await import("ai");
-    const provider = createOpenAI({
-      baseURL: "https://ai.gateway.lovable.dev/v1",
-      apiKey,
-      headers: { "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
-    });
+    // OPENAI_API_KEY (e.g. on Netlify) takes priority; Lovable gateway is the fallback.
+    const provider = openaiKey
+      ? createOpenAI({ apiKey: openaiKey })
+      : createOpenAI({
+          baseURL: "https://ai.gateway.lovable.dev/v1",
+          apiKey: apiKey!,
+          headers: { "Lovable-API-Key": apiKey!, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
+        });
+    const modelId = openaiKey ? process.env["OPENAI_MODEL"] || "gpt-4o-mini" : "openai/gpt-6-astra";
 
     try {
       const result = streamText({
-        model: provider.responses("openai/gpt-6-astra"),
+        model: provider.responses(modelId),
         system:
           "You are Vermaak's advisor. Vermaak is a technology company building talent, markets and systems for Africa's digital and creative economy. Recommend 2-5 relevant offerings. Use the provided catalog first (exact slugs; prefer active ventures and say so if a venture is 'coming_soon' or 'developing'). You are NOT limited to the catalog: also draw on your broad knowledge of digital transformation, skills development, business support, market access, creative economy programmes, funding readiness and best practices from other sources, and frame these as tailored programmes Vermaak can offer or co-design (kind 'programme', a short kebab-case slug, and a 'name'). Reply with ONLY a JSON object: {\"summary\": string, \"recommendations\": [{\"kind\": \"venture\"|\"service\"|\"programme\", \"slug\": string, \"name\"?: string, \"reason\": string (1-2 sentences, addressed to the user), \"next_step\": string (short action)}]}.",
         messages: [
@@ -80,9 +85,9 @@ export const recommendForGoals = createServerFn({ method: "POST" })
         providerOptions: {
           openai: {
             store: false,
-            forceReasoning: true,
-            reasoningEffort: "low",
-            include: ["reasoning.encrypted_content"],
+            ...(openaiKey
+              ? {}
+              : { forceReasoning: true, reasoningEffort: "low", include: ["reasoning.encrypted_content"] }),
           },
         },
       });
