@@ -134,7 +134,7 @@ function MatchPage() {
                 <ul className="mt-8 space-y-4">
                   {result.recommendations.map((r) => (
                     <li key={r.kind + r.slug} className="rounded-2xl border border-border p-5">
-                      <p className="eyebrow text-muted-foreground">{r.kind === "venture" ? "Venture" : "Service"}</p>
+                      <p className="eyebrow text-muted-foreground">{r.kind === "venture" ? "Venture" : r.kind === "service" ? "Service" : "Tailored programme"}</p>
                       <h2 className="mt-2 font-display text-2xl font-medium">{r.name}</h2>
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{r.reason}</p>
                       <p className="mt-3 text-sm font-medium">Next step: {r.next_step}</p>
@@ -151,7 +151,7 @@ function MatchPage() {
                           </a>
                         ) : (
                           <Link
-                            to={r.kind === "venture" ? "/ecosystem" : "/services"}
+                            to={r.kind === "venture" ? "/ecosystem" : r.kind === "service" ? "/services" : "/contact"}
                             className="inline-flex items-center gap-1.5 text-sm font-medium text-accent"
                           >
                             Learn more <ArrowRight className="size-4" />
